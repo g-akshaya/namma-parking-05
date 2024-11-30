@@ -79,30 +79,30 @@ const Index = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-purple-50 to-white">
         <div className={`transition-opacity duration-500 ${showWelcome ? 'opacity-100' : 'opacity-0'}`}>
-          <h1 className="text-3xl font-bold mb-2 text-purple-600">Welcome to</h1>
-          <h2 className="text-4xl font-bold mb-8 text-purple-600">Namma Parking</h2>
+          <h1 className="text-4xl font-bold mb-2 text-purple-600 font-serif">Welcome to</h1>
+          <h2 className="text-5xl font-bold mb-8 text-purple-600 font-serif">Namma Parking</h2>
         </div>
         <div className="animate-bounce">
-          <CarIcon className="w-16 h-16 text-purple-600" />
+          <CarIcon className="w-20 h-20 text-purple-600" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
       <div className="p-4">
         <Sheet>
           <SheetTrigger asChild>
-            <button className="p-2 hover:bg-gray-100 rounded-lg">
+            <button className="p-2 hover:bg-purple-100 rounded-lg transition-colors">
               <MenuIcon className="w-6 h-6 text-purple-600" />
             </button>
           </SheetTrigger>
           <SheetContent side="left" className="w-[250px] bg-white">
             <div className="py-4">
-              <h2 className="text-xl font-bold text-purple-600 mb-6 px-4">Namma Parking</h2>
+              <h2 className="text-2xl font-bold text-purple-600 mb-6 px-4 font-serif">Namma Parking</h2>
               <nav className="space-y-2">
                 {menuItems.map((item, index) => (
                   <button
@@ -119,9 +119,9 @@ const Index = () => {
         </Sheet>
 
         <div className="max-w-md mx-auto mt-4">
-          <h1 className="text-2xl font-bold text-center mb-6 text-purple-600">Namma Parking</h1>
+          <h1 className="text-3xl font-bold text-center mb-6 text-purple-600 font-serif">Namma Parking</h1>
           
-          <Card className="p-4">
+          <Card className="p-4 shadow-lg">
             <div className="relative">
               <Input
                 type="text"
@@ -131,14 +131,21 @@ const Index = () => {
                   setSearchValue(e.target.value);
                   setShowParkingSlots(true);
                 }}
-                className="pr-10"
+                className="pr-10 bg-white/80 backdrop-blur-sm"
               />
-              <SearchIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <SearchIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400" />
             </div>
+
+            {!showParkingSlots && (
+              <div className="mt-8 flex justify-center">
+                <div className="animate-pulse">
+                  <CarIcon className="w-16 h-16 text-purple-400" />
+                </div>
+              </div>
+            )}
 
             {showParkingSlots && (
               <div className="relative mt-8">
-                {/* Left row of parking slots */}
                 <div className="absolute left-0 space-y-4">
                   {parkingSlots.slice(0, 3).map((slot) => (
                     <div
@@ -146,21 +153,19 @@ const Index = () => {
                       onClick={() => slot.status === 'available' && handleSlotSelection(slot.id)}
                       className={`w-16 h-16 border-2 ${
                         slot.status === 'available' ? 'border-green-500 bg-green-100' : 'border-red-500 bg-red-100'
-                      } rounded-lg flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity`}
+                      } rounded-lg flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity shadow-md`}
                     >
                       {slot.id}
                     </div>
                   ))}
                 </div>
 
-                {/* Center area for car movement */}
-                <div className="mx-auto w-24 h-64 bg-gray-200 rounded-lg">
-                  <div className="h-full flex items-center justify-center text-gray-500">
-                    <CarIcon className="w-12 h-12" />
+                <div className="mx-auto w-24 h-64 bg-gray-200/80 backdrop-blur-sm rounded-lg">
+                  <div className="h-full flex items-center justify-center text-purple-400">
+                    <CarIcon className="w-12 h-12 animate-pulse" />
                   </div>
                 </div>
 
-                {/* Right row of parking slots */}
                 <div className="absolute right-0 space-y-4">
                   {parkingSlots.slice(3).map((slot) => (
                     <div
@@ -168,7 +173,7 @@ const Index = () => {
                       onClick={() => slot.status === 'available' && handleSlotSelection(slot.id)}
                       className={`w-16 h-16 border-2 ${
                         slot.status === 'available' ? 'border-green-500 bg-green-100' : 'border-red-500 bg-red-100'
-                      } rounded-lg flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity`}
+                      } rounded-lg flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity shadow-md`}
                     >
                       {slot.id}
                     </div>
