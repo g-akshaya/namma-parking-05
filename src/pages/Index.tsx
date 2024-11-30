@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/components/ui/use-toast";
 import { 
-  CarIcon, 
   MenuIcon,
   UserIcon,
   CreditCardIcon,
@@ -24,21 +23,18 @@ import {
   XIcon,
   SearchIcon,
 } from 'lucide-react';
+import LoadingScreen from '@/components/LoadingScreen';
+import ParkingLayout from '@/components/ParkingLayout';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [searchValue, setSearchValue] = useState('');
   const [showParkingSlots, setShowParkingSlots] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
-    setTimeout(() => {
-      setShowWelcome(true);
-    }, 500);
-
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 3500);
@@ -46,12 +42,12 @@ const Index = () => {
   }, []);
 
   const parkingSlots = [
-    { id: 'L1', status: 'available' },
-    { id: 'L2', status: 'occupied' },
-    { id: 'L3', status: 'available' },
-    { id: 'R1', status: 'available' },
-    { id: 'R2', status: 'available' },
-    { id: 'R3', status: 'occupied' },
+    { id: 'L1', status: 'available' as const },
+    { id: 'L2', status: 'occupied' as const },
+    { id: 'L3', status: 'available' as const },
+    { id: 'R1', status: 'available' as const },
+    { id: 'R2', status: 'available' as const },
+    { id: 'R3', status: 'occupied' as const },
   ];
 
   const menuItems = [
@@ -62,6 +58,12 @@ const Index = () => {
     { icon: <LogOutIcon className="w-5 h-5" />, label: 'Log Out' },
     { icon: <XIcon className="w-5 h-5" />, label: 'Exit' },
   ];
+
+  const handleSearch = () => {
+    if (searchValue.toLowerCase() === 'college') {
+      setShowParkingSlots(true);
+    }
+  };
 
   const handleSlotSelection = (slotId: string) => {
     setSelectedSlot(slotId);
@@ -78,17 +80,7 @@ const Index = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-purple-50 to-white">
-        <div className={`transition-opacity duration-500 ${showWelcome ? 'opacity-100' : 'opacity-0'}`}>
-          <h1 className="text-4xl font-bold mb-2 text-purple-600 font-serif">Welcome to</h1>
-          <h2 className="text-5xl font-bold mb-8 text-purple-600 font-serif">Namma Parking</h2>
-        </div>
-        <div className="animate-bounce">
-          <CarIcon className="w-20 h-20 text-purple-600" />
-        </div>
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   return (
@@ -102,7 +94,7 @@ const Index = () => {
           </SheetTrigger>
           <SheetContent side="left" className="w-[250px] bg-white">
             <div className="py-4">
-              <h2 className="text-2xl font-bold text-purple-600 mb-6 px-4 font-serif">Namma Parking</h2>
+              <h2 className="text-2xl font-bold text-purple-600 mb-6 px-4">Namma Parking</h2>
               <nav className="space-y-2">
                 {menuItems.map((item, index) => (
                   <button
@@ -119,7 +111,7 @@ const Index = () => {
         </Sheet>
 
         <div className="max-w-md mx-auto mt-4">
-          <h1 className="text-3xl font-bold text-center mb-6 text-purple-600 font-serif">Namma Parking</h1>
+          <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">Namma Parking</h1>
           
           <Card className="p-4 shadow-lg">
             <div className="relative">
@@ -127,59 +119,23 @@ const Index = () => {
                 type="text"
                 placeholder="Search parking location..."
                 value={searchValue}
-                onChange={(e) => {
-                  setSearchValue(e.target.value);
-                  setShowParkingSlots(true);
-                }}
+                onChange={(e) => setSearchValue(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
                 className="pr-10 bg-white/80 backdrop-blur-sm"
               />
-              <SearchIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400" />
+              <button 
+                onClick={handleSearch}
+                className="absolute right-3 top-1/2 -translate-y-1/2"
+              >
+                <SearchIcon className="w-5 h-5 text-purple-400" />
+              </button>
             </div>
 
-            {!showParkingSlots && (
-              <div className="mt-8 flex justify-center">
-                <div className="animate-pulse">
-                  <CarIcon className="w-16 h-16 text-purple-400" />
-                </div>
-              </div>
-            )}
-
             {showParkingSlots && (
-              <div className="relative mt-8">
-                <div className="absolute left-0 space-y-4">
-                  {parkingSlots.slice(0, 3).map((slot) => (
-                    <div
-                      key={slot.id}
-                      onClick={() => slot.status === 'available' && handleSlotSelection(slot.id)}
-                      className={`w-16 h-16 border-2 ${
-                        slot.status === 'available' ? 'border-green-500 bg-green-100' : 'border-red-500 bg-red-100'
-                      } rounded-lg flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity shadow-md`}
-                    >
-                      {slot.id}
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mx-auto w-24 h-64 bg-gray-200/80 backdrop-blur-sm rounded-lg">
-                  <div className="h-full flex items-center justify-center text-purple-400">
-                    <CarIcon className="w-12 h-12 animate-pulse" />
-                  </div>
-                </div>
-
-                <div className="absolute right-0 space-y-4">
-                  {parkingSlots.slice(3).map((slot) => (
-                    <div
-                      key={slot.id}
-                      onClick={() => slot.status === 'available' && handleSlotSelection(slot.id)}
-                      className={`w-16 h-16 border-2 ${
-                        slot.status === 'available' ? 'border-green-500 bg-green-100' : 'border-red-500 bg-red-100'
-                      } rounded-lg flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity shadow-md`}
-                    >
-                      {slot.id}
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <ParkingLayout 
+                parkingSlots={parkingSlots}
+                onSlotSelect={handleSlotSelection}
+              />
             )}
           </Card>
         </div>
