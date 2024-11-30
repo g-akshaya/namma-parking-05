@@ -3,6 +3,17 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { 
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { useToast } from "@/components/ui/use-toast";
+import { 
   CarIcon, 
   MenuIcon,
   UserIcon,
@@ -10,6 +21,8 @@ import {
   HistoryIcon,
   InfoIcon,
   LogOutIcon,
+  XIcon,
+  SearchIcon,
 } from 'lucide-react';
 
 const Index = () => {
@@ -17,6 +30,9 @@ const Index = () => {
   const [searchValue, setSearchValue] = useState('');
   const [showParkingSlots, setShowParkingSlots] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
+  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     setTimeout(() => {
@@ -44,7 +60,22 @@ const Index = () => {
     { icon: <HistoryIcon className="w-5 h-5" />, label: 'Parking History' },
     { icon: <InfoIcon className="w-5 h-5" />, label: 'FAQ' },
     { icon: <LogOutIcon className="w-5 h-5" />, label: 'Log Out' },
+    { icon: <XIcon className="w-5 h-5" />, label: 'Exit' },
   ];
+
+  const handleSlotSelection = (slotId: string) => {
+    setSelectedSlot(slotId);
+    setShowConfirmDialog(true);
+  };
+
+  const handleConfirmBooking = () => {
+    setShowConfirmDialog(false);
+    toast({
+      title: "Booking Confirmed!",
+      description: "You have 5 minutes to park your car.",
+      duration: 5000,
+    });
+  };
 
   if (isLoading) {
     return (
@@ -91,16 +122,19 @@ const Index = () => {
           <h1 className="text-2xl font-bold text-center mb-6 text-purple-600">Namma Parking</h1>
           
           <Card className="p-4">
-            <Input
-              type="text"
-              placeholder="Search parking location..."
-              value={searchValue}
-              onChange={(e) => {
-                setSearchValue(e.target.value);
-                setShowParkingSlots(true);
-              }}
-              className="mb-4"
-            />
+            <div className="relative">
+              <Input
+                type="text"
+                placeholder="Search parking location..."
+                value={searchValue}
+                onChange={(e) => {
+                  setSearchValue(e.target.value);
+                  setShowParkingSlots(true);
+                }}
+                className="pr-10"
+              />
+              <SearchIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            </div>
 
             {showParkingSlots && (
               <div className="relative mt-8">
@@ -109,6 +143,7 @@ const Index = () => {
                   {parkingSlots.slice(0, 3).map((slot) => (
                     <div
                       key={slot.id}
+                      onClick={() => slot.status === 'available' && handleSlotSelection(slot.id)}
                       className={`w-16 h-16 border-2 ${
                         slot.status === 'available' ? 'border-green-500 bg-green-100' : 'border-red-500 bg-red-100'
                       } rounded-lg flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity`}
@@ -130,6 +165,7 @@ const Index = () => {
                   {parkingSlots.slice(3).map((slot) => (
                     <div
                       key={slot.id}
+                      onClick={() => slot.status === 'available' && handleSlotSelection(slot.id)}
                       className={`w-16 h-16 border-2 ${
                         slot.status === 'available' ? 'border-green-500 bg-green-100' : 'border-red-500 bg-red-100'
                       } rounded-lg flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity`}
@@ -143,6 +179,21 @@ const Index = () => {
           </Card>
         </div>
       </div>
+
+      <AlertDialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Confirm Parking Slot</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to book parking slot {selectedSlot}?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>No</AlertDialogCancel>
+            <AlertDialogAction onClick={handleConfirmBooking}>Yes</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
