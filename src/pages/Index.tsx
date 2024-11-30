@@ -7,12 +7,18 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [searchValue, setSearchValue] = useState('');
   const [showParkingSlots, setShowParkingSlots] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false);
 
   useEffect(() => {
-    // Simulate loading animation
+    // Show welcome message after a brief delay
+    setTimeout(() => {
+      setShowWelcome(true);
+    }, 500);
+
+    // Simulate loading animation with longer duration
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 3500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -28,7 +34,10 @@ const Index = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-        <h1 className="text-3xl font-bold mb-8 text-purple-600">Namma Parking</h1>
+        <div className={`transition-opacity duration-500 ${showWelcome ? 'opacity-100' : 'opacity-0'}`}>
+          <h1 className="text-3xl font-bold mb-2 text-purple-600">Welcome to</h1>
+          <h2 className="text-4xl font-bold mb-8 text-purple-600">Namma Parking</h2>
+        </div>
         <div className="animate-bounce">
           <CarIcon className="w-16 h-16 text-purple-600" />
         </div>
