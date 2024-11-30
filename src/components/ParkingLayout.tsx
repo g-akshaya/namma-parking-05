@@ -31,10 +31,8 @@ const ParkingLayout = ({ parkingSlots, onSlotSelect }: ParkingLayoutProps) => {
           ))}
         </div>
 
-        <div className="mx-auto w-24 h-64 bg-gray-200/80 backdrop-blur-sm rounded-lg">
-          <div className="h-full flex items-center justify-center text-purple-400">
-            <CarIcon className="w-12 h-12 animate-pulse" />
-          </div>
+        <div className="mx-auto w-24 h-64 bg-gray-200/80 backdrop-blur-sm rounded-lg flex items-center justify-center">
+          <CarIcon className="w-12 h-12 text-purple-400 animate-pulse" />
         </div>
 
         <div className="space-y-4">
