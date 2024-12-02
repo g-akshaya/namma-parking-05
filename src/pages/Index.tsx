@@ -77,8 +77,14 @@ const Index = () => {
   };
 
   const handleNoConfirmation = () => {
+    // Reset all dialog states
     setShowConfirmNowDialog(false);
+    setShowConfirmLaterDialog(false);
+    setShowTimeSelectionDialog(false);
+    setShowBufferDialog(false);
     setShowBookingDialog(false);
+    // Clear selected slot to allow new selection
+    setSelectedSlot(null);
   };
 
   if (isLoading) {
