@@ -167,9 +167,13 @@ const Index = () => {
                 { id: 'L1', status: 'available' },
                 { id: 'L2', status: 'occupied' },
                 { id: 'L3', status: 'available' },
+                { id: 'L4', status: 'available' },
+                { id: 'L5', status: 'occupied' },
                 { id: 'R1', status: 'available' },
                 { id: 'R2', status: 'available' },
                 { id: 'R3', status: 'occupied' },
+                { id: 'R4', status: 'available' },
+                { id: 'R5', status: 'occupied' },
               ]}
               onSlotSelect={handleSlotSelection}
             />

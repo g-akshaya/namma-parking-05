@@ -11,8 +11,8 @@ interface ParkingLayoutProps {
 }
 
 const ParkingLayout = ({ parkingSlots, onSlotSelect }: ParkingLayoutProps) => {
-  const leftSlots = parkingSlots.slice(0, 3);
-  const rightSlots = parkingSlots.slice(3);
+  const leftSlots = parkingSlots.slice(0, 5);
+  const rightSlots = parkingSlots.slice(5);
 
   return (
     <div className="relative mt-8">
@@ -31,7 +31,7 @@ const ParkingLayout = ({ parkingSlots, onSlotSelect }: ParkingLayoutProps) => {
           ))}
         </div>
 
-        <div className="mx-auto w-24 h-64 bg-gray-200/80 backdrop-blur-sm rounded-lg flex items-center justify-center">
+        <div className="mx-auto w-24 h-96 bg-gray-200/80 backdrop-blur-sm rounded-lg flex items-center justify-center">
           <CarIcon className="w-12 h-12 text-purple-400 animate-pulse" />
         </div>
 
