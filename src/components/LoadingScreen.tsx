@@ -3,11 +3,11 @@ import { CarIcon } from 'lucide-react';
 const LoadingScreen = () => {
   return (
     <div className="min-h-screen flex flex-col items-start justify-center bg-white p-8">
-      <div className="w-full max-w-md space-y-4">
-        <h1 className="text-[28px] font-bold text-left text-purple-600">
+      <div className="w-full max-w-md space-y-2">
+        <h1 className="text-[28px] font-serif font-semibold text-left text-purple-600">
           Welcome to
         </h1>
-        <h2 className="text-[30px] font-bold text-left bg-gradient-to-r from-purple-600 to-purple-400 bg-clip-text text-transparent">
+        <h2 className="text-[30px] font-serif font-bold text-left bg-gradient-to-r from-purple-600 to-purple-400 bg-clip-text text-transparent">
           Namma Parking
         </h2>
       </div>
