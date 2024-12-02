@@ -142,41 +142,44 @@ const Index = () => {
         </div>
 
         <Card className="p-4 shadow-lg">
-          <div className="relative">
-            <Input
-              type="text"
-              placeholder="Search parking location..."
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              className="pr-10 bg-white/80 backdrop-blur-sm"
-            />
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={handleSearch}
-              className="absolute right-1 top-1/2 -translate-y-1/2"
-            >
-              <SearchIcon className="w-5 h-5 text-purple-400" />
-            </Button>
-          </div>
-
-          {showParkingSlots && (
-            <ParkingLayout 
-              parkingSlots={[
-                { id: 'L1', status: 'available' },
-                { id: 'L2', status: 'occupied' },
-                { id: 'L3', status: 'available' },
-                { id: 'L4', status: 'available' },
-                { id: 'L5', status: 'occupied' },
-                { id: 'R1', status: 'available' },
-                { id: 'R2', status: 'available' },
-                { id: 'R3', status: 'occupied' },
-                { id: 'R4', status: 'available' },
-                { id: 'R5', status: 'occupied' },
-              ]}
-              onSlotSelect={handleSlotSelection}
-            />
+          {!showParkingSlots ? (
+            <div className="relative">
+              <Input
+                type="text"
+                placeholder="Search parking location..."
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                className="pr-10 bg-white/80 backdrop-blur-sm"
+              />
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={handleSearch}
+                className="absolute right-1 top-1/2 -translate-y-1/2"
+              >
+                <SearchIcon className="w-5 h-5 text-purple-400" />
+              </Button>
+            </div>
+          ) : (
+            <>
+              <h2 className="text-xl font-semibold text-purple-600 mb-4">College Parking</h2>
+              <ParkingLayout 
+                parkingSlots={[
+                  { id: 'L1', status: 'available' },
+                  { id: 'L2', status: 'occupied' },
+                  { id: 'L3', status: 'available' },
+                  { id: 'L4', status: 'available' },
+                  { id: 'L5', status: 'occupied' },
+                  { id: 'R1', status: 'available' },
+                  { id: 'R2', status: 'available' },
+                  { id: 'R3', status: 'occupied' },
+                  { id: 'R4', status: 'available' },
+                  { id: 'R5', status: 'occupied' },
+                ]}
+                onSlotSelect={handleSlotSelection}
+              />
+            </>
           )}
         </Card>
       </div>
