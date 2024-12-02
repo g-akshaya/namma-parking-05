@@ -193,9 +193,6 @@ const Index = () => {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="flex justify-end space-x-2">
-            <Button variant="outline" onClick={() => setShowBookingDialog(false)}>
-              Cancel
-            </Button>
             <Button onClick={handleBookLater}>Book Later</Button>
             <Button onClick={handleBookNow}>Book Now</Button>
           </DialogFooter>
