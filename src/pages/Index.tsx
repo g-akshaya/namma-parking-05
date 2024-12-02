@@ -185,16 +185,16 @@ const Index = () => {
       </div>
 
       <Dialog open={showBookingDialog} onOpenChange={setShowBookingDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Booking Options</DialogTitle>
-            <DialogDescription>
+        <DialogContent className="max-w-sm p-4">
+          <DialogHeader className="space-y-2">
+            <DialogTitle className="text-base">Booking Options</DialogTitle>
+            <DialogDescription className="text-sm">
               Do you want to book now or for later?
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className="flex justify-end space-x-2">
-            <Button onClick={handleBookLater}>Book Later</Button>
-            <Button onClick={handleBookNow}>Book Now</Button>
+          <DialogFooter className="flex justify-end gap-2 mt-4">
+            <Button size="sm" onClick={handleBookLater}>Book Later</Button>
+            <Button size="sm" onClick={handleBookNow}>Book Now</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
