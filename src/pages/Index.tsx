@@ -107,6 +107,11 @@ const Index = () => {
     setShowParkingSlots(false);
   };
 
+  const handleNoConfirmation = () => {
+    setShowConfirmNowDialog(false);
+    setShowBookingDialog(false); // This will close both dialogs and show the layout
+  };
+
   if (isLoading) {
     return <LoadingScreen />;
   }
@@ -200,15 +205,15 @@ const Index = () => {
       </Dialog>
 
       <AlertDialog open={showConfirmNowDialog} onOpenChange={setShowConfirmNowDialog}>
-        <AlertDialogContent>
+        <AlertDialogContent className="max-w-sm rounded-xl p-4">
           <AlertDialogHeader>
-            <AlertDialogTitle>Confirm Booking</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogTitle className="text-base">Confirm Booking</AlertDialogTitle>
+            <AlertDialogDescription className="text-sm">
               Are you sure you want to book this slot now?
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>No</AlertDialogCancel>
+          <AlertDialogFooter className="gap-2 mt-4">
+            <AlertDialogCancel onClick={handleNoConfirmation}>No</AlertDialogCancel>
             <AlertDialogAction onClick={handleConfirmNowBooking}>Yes</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
