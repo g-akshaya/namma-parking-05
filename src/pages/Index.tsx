@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
+import { ArrowLeft } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 import LoadingScreen from '@/components/LoadingScreen';
 import ParkingLayout from '@/components/ParkingLayout';
 import MainHeader from '@/components/parking/MainHeader';
@@ -17,6 +19,7 @@ const Index = () => {
   const [showConfirmLaterDialog, setShowConfirmLaterDialog] = useState(false);
   const [showTimeSelectionDialog, setShowTimeSelectionDialog] = useState(false);
   const [showBufferDialog, setShowBufferDialog] = useState(false);
+  const [showBackButton, setShowBackButton] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -29,6 +32,7 @@ const Index = () => {
   const handleSearch = () => {
     if (searchValue.toLowerCase() === 'college') {
       setShowParkingSlots(true);
+      setShowBackButton(false);
     }
   };
 
@@ -54,6 +58,8 @@ const Index = () => {
       description: "You have 5 minutes to park your car.",
       duration: 5000,
     });
+    setShowParkingSlots(false);
+    setShowBackButton(true);
   };
 
   const handleConfirmLaterBooking = () => {
@@ -74,6 +80,13 @@ const Index = () => {
       duration: 5000,
     });
     setShowParkingSlots(false);
+    setShowBackButton(true);
+  };
+
+  const handleBackToMain = () => {
+    setSearchValue('');
+    setShowParkingSlots(false);
+    setShowBackButton(false);
   };
 
   if (isLoading) {
@@ -85,6 +98,17 @@ const Index = () => {
       <div className="p-4">
         <MainHeader />
         
+        {showBackButton && (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleBackToMain}
+            className="mb-4"
+          >
+            <ArrowLeft className="h-6 w-6 text-purple-600" />
+          </Button>
+        )}
+
         <Card className="p-4 shadow-lg">
           <SearchBar 
             searchValue={searchValue}
