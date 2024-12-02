@@ -190,7 +190,7 @@ const Index = () => {
       </div>
 
       <Dialog open={showBookingDialog} onOpenChange={setShowBookingDialog}>
-        <DialogContent className="max-w-sm p-4">
+        <DialogContent className="max-w-sm rounded-xl p-4">
           <DialogHeader className="space-y-2">
             <DialogTitle className="text-base">Booking Options</DialogTitle>
             <DialogDescription className="text-sm">
