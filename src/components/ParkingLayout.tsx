@@ -16,6 +16,18 @@ const ParkingLayout = ({ parkingSlots, onSlotSelect }: ParkingLayoutProps) => {
 
   return (
     <div className="relative mt-8">
+      {/* Legend */}
+      <div className="mb-6 flex items-center gap-6 justify-center">
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 border-2 border-green-500 bg-green-100 rounded"></div>
+          <span className="text-sm text-gray-600">Available</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 border-2 border-red-500 bg-red-100 rounded"></div>
+          <span className="text-sm text-gray-600">Occupied</span>
+        </div>
+      </div>
+
       <div className="flex justify-between">
         <div className="space-y-4">
           {leftSlots.map((slot) => (
