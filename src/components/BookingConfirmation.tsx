@@ -33,6 +33,8 @@ const BookingConfirmation = ({ slotId, bookingTime }: BookingConfirmationProps) 
 
   const handleTimeoutOk = () => {
     setShowTimeoutDialog(false);
+    // Set showParkingSlots in localStorage before navigating
+    localStorage.setItem('showParkingSlots', 'true');
     navigate('/');
   };
 

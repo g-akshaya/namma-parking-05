@@ -22,6 +22,16 @@ const Index = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Check if we're coming from a timeout
+    const showSlots = localStorage.getItem('showParkingSlots');
+    if (showSlots === 'true') {
+      setShowParkingSlots(true);
+      setIsLoading(false);
+      localStorage.removeItem('showParkingSlots'); // Clear the flag
+      return;
+    }
+
+    // Normal loading behavior
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 3500);
@@ -89,7 +99,7 @@ const Index = () => {
     setSelectedSlot(null);
   };
 
-  if (isLoading) {
+  if (isLoading && !showParkingSlots) {
     return <LoadingScreen />;
   }
 
