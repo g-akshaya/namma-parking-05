@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from 'react-router-dom';
 import LoadingScreen from '@/components/LoadingScreen';
 import ParkingLayout from '@/components/ParkingLayout';
 import Header from '@/components/Header';
@@ -18,6 +19,7 @@ const Index = () => {
   const [showTimeSelectionDialog, setShowTimeSelectionDialog] = useState(false);
   const [showBufferDialog, setShowBufferDialog] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -49,11 +51,11 @@ const Index = () => {
 
   const handleConfirmNowBooking = () => {
     setShowConfirmNowDialog(false);
-    toast({
-      title: "Booking Confirmed!",
-      description: "You have 5 minutes to park your car.",
-      duration: 5000,
-    });
+    if (selectedSlot) {
+      localStorage.setItem('selectedSlot', selectedSlot);
+      localStorage.setItem('bookingTime', new Date().toISOString());
+      navigate('/booking-confirmation');
+    }
   };
 
   const handleConfirmLaterBooking = () => {
