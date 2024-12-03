@@ -6,6 +6,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import Profile from "./pages/Profile";
 import Wallet from "./pages/Wallet";
+import ParkingHistory from "./pages/ParkingHistory";
+import BookingStatus from "./pages/BookingStatus";
+import FAQ from "./pages/FAQ";
 import BookingConfirmation from "./components/BookingConfirmation";
 
 const queryClient = new QueryClient();
@@ -20,6 +23,9 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/wallet" element={<Wallet />} />
+          <Route path="/parking-history" element={<ParkingHistory />} />
+          <Route path="/booking-status" element={<BookingStatus />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route 
             path="/booking-confirmation" 
             element={
