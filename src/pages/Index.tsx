@@ -22,6 +22,18 @@ const Index = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Clear any temporary booking states when component mounts
+    const cleanup = () => {
+      setSelectedSlot(null);
+      setShowBookingDialog(false);
+      setShowConfirmNowDialog(false);
+      setShowConfirmLaterDialog(false);
+      setShowTimeSelectionDialog(false);
+      setShowBufferDialog(false);
+    };
+
+    cleanup();
+    
     const showSlots = localStorage.getItem('showParkingSlots');
     if (showSlots === 'true') {
       setShowParkingSlots(true);
@@ -57,6 +69,9 @@ const Index = () => {
       localStorage.setItem('selectedSlot', selectedSlot);
       localStorage.setItem('bookingTime', new Date().toISOString());
       navigate('/booking-confirmation');
+      // Reset states after booking
+      setSelectedSlot(null);
+      setShowBookingDialog(false);
     }
   };
 
@@ -78,6 +93,9 @@ const Index = () => {
       duration: 5000,
     });
     setShowParkingSlots(false);
+    // Reset all states after successful booking
+    setSelectedSlot(null);
+    setShowBookingDialog(false);
   };
 
   const handleNoConfirmation = () => {
