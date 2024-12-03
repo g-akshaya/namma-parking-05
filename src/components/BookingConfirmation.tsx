@@ -13,6 +13,7 @@ interface BookingConfirmationProps {
 const BookingConfirmation = ({ slotId, bookingTime }: BookingConfirmationProps) => {
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
   const [showThankYouDialog, setShowThankYouDialog] = useState(true);
+  const [showTimeoutDialog, setShowTimeoutDialog] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +21,7 @@ const BookingConfirmation = ({ slotId, bookingTime }: BookingConfirmationProps) 
       setTimeLeft((prevTime) => {
         if (prevTime <= 1) {
           clearInterval(timer);
+          setShowTimeoutDialog(true);
           return 0;
         }
         return prevTime - 1;
@@ -28,6 +30,11 @@ const BookingConfirmation = ({ slotId, bookingTime }: BookingConfirmationProps) 
 
     return () => clearInterval(timer);
   }, []);
+
+  const handleTimeoutOk = () => {
+    setShowTimeoutDialog(false);
+    navigate('/');
+  };
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
@@ -45,6 +52,26 @@ const BookingConfirmation = ({ slotId, bookingTime }: BookingConfirmationProps) 
           <DialogFooter>
             <Button 
               onClick={() => setShowThankYouDialog(false)}
+              className="w-full"
+            >
+              OK
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showTimeoutDialog} onOpenChange={setShowTimeoutDialog}>
+        <DialogContent className="sm:max-w-md rounded-xl">
+          <div className="flex flex-col items-center gap-4 py-4">
+            <ClockIcon className="w-16 h-16 text-red-500" />
+            <h2 className="text-xl font-semibold text-center">Time's Up!</h2>
+            <p className="text-center text-gray-600">
+              The time given to park your vehicle has run out so please rebook your slots
+            </p>
+          </div>
+          <DialogFooter>
+            <Button 
+              onClick={handleTimeoutOk}
               className="w-full"
             >
               OK
