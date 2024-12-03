@@ -9,7 +9,7 @@ import BookingDialogs from '@/components/BookingDialogs';
 import ParkingSection from '@/components/ParkingSection';
 
 const Index = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [showParkingSlots, setShowParkingSlots] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
@@ -27,13 +27,7 @@ const Index = () => {
       setShowParkingSlots(true);
       setIsLoading(false);
       localStorage.removeItem('showParkingSlots');
-      return;
     }
-
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3500);
-    return () => clearTimeout(timer);
   }, []);
 
   const handleSearch = () => {
