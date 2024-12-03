@@ -64,14 +64,14 @@ const FAQ = () => {
       </Button>
       
       <div className="max-w-2xl mx-auto">
-        <h2 className="text-2xl font-bold text-purple-800 mb-6">Frequently Asked Questions</h2>
+        <h2 className="text-2xl font-bold text-purple-800 mb-6 text-center">Frequently Asked Questions</h2>
         <Accordion type="single" collapsible className="space-y-2">
           {faqData.map((faq, index) => (
             <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg shadow-sm">
-              <AccordionTrigger className="px-4 hover:no-underline hover:text-purple-600">
+              <AccordionTrigger className="px-4 hover:no-underline hover:text-purple-600 text-left">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="px-4 text-gray-600">
+              <AccordionContent className="px-4 text-gray-600 text-justify">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
