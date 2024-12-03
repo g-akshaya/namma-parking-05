@@ -3,10 +3,10 @@ import { Card } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from 'react-router-dom';
 import LoadingScreen from '@/components/LoadingScreen';
-import ParkingLayout from '@/components/ParkingLayout';
 import Header from '@/components/Header';
 import SearchLocation from '@/components/SearchLocation';
 import BookingDialogs from '@/components/BookingDialogs';
+import ParkingSection from '@/components/ParkingSection';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,16 +22,14 @@ const Index = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if we're coming from a timeout
     const showSlots = localStorage.getItem('showParkingSlots');
     if (showSlots === 'true') {
       setShowParkingSlots(true);
       setIsLoading(false);
-      localStorage.removeItem('showParkingSlots'); // Clear the flag
+      localStorage.removeItem('showParkingSlots');
       return;
     }
 
-    // Normal loading behavior
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 3500);
@@ -89,13 +87,11 @@ const Index = () => {
   };
 
   const handleNoConfirmation = () => {
-    // Reset all dialog states
     setShowConfirmNowDialog(false);
     setShowConfirmLaterDialog(false);
     setShowTimeSelectionDialog(false);
     setShowBufferDialog(false);
     setShowBookingDialog(false);
-    // Clear selected slot to allow new selection
     setSelectedSlot(null);
   };
 
@@ -115,24 +111,7 @@ const Index = () => {
               onSearch={handleSearch}
             />
           ) : (
-            <>
-              <h2 className="text-xl font-semibold text-purple-600 mb-4">College Parking</h2>
-              <ParkingLayout 
-                parkingSlots={[
-                  { id: 'L1', status: 'available' },
-                  { id: 'L2', status: 'occupied' },
-                  { id: 'L3', status: 'available' },
-                  { id: 'L4', status: 'available' },
-                  { id: 'L5', status: 'occupied' },
-                  { id: 'R1', status: 'available' },
-                  { id: 'R2', status: 'available' },
-                  { id: 'R3', status: 'occupied' },
-                  { id: 'R4', status: 'available' },
-                  { id: 'R5', status: 'occupied' },
-                ]}
-                onSlotSelect={handleSlotSelection}
-              />
-            </>
+            <ParkingSection onSlotSelect={handleSlotSelection} />
           )}
         </Card>
       </div>
