@@ -11,7 +11,7 @@ interface BookingConfirmationProps {
 }
 
 const BookingConfirmation = ({ slotId, bookingTime }: BookingConfirmationProps) => {
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(60); // 1 minute in seconds
   const [showThankYouDialog, setShowThankYouDialog] = useState(true);
   const [showTimeoutDialog, setShowTimeoutDialog] = useState(false);
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ const BookingConfirmation = ({ slotId, bookingTime }: BookingConfirmationProps) 
           <div className="flex flex-col items-center gap-4 py-4">
             <CarIcon className="w-16 h-16 text-purple-500" />
             <h2 className="text-xl font-semibold text-center">Thank you for Booking</h2>
-            <p className="text-center text-gray-600">You have 5 minutes to park your car</p>
+            <p className="text-center text-gray-600">You have 1 minute to park your car</p>
           </div>
           <DialogFooter>
             <Button 
