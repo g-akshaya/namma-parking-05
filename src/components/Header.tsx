@@ -6,7 +6,7 @@ import { SidebarMenu } from './SidebarMenu';
 const Header = () => {
   return (
     <div className="flex justify-between items-center mb-6">
-      <h1 className="text-2xl font-bold text-purple-600">Welcome to Namma Parking</h1>
+      <h1 className="text-2xl font-bold text-purple-600">Namma Parking</h1>
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="ghost" size="icon">
