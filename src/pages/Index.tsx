@@ -101,19 +101,34 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
-      <div className="p-4">
+      <div className="p-4 max-w-4xl mx-auto">
         <Header />
-        <Card className="p-4 shadow-lg">
-          {!showParkingSlots ? (
-            <SearchLocation 
-              searchValue={searchValue}
-              onSearchChange={setSearchValue}
-              onSearch={handleSearch}
-            />
-          ) : (
+        
+        {!showParkingSlots ? (
+          <div className="space-y-6 mt-8">
+            <div className="text-center space-y-4">
+              <h1 className="text-3xl font-bold text-purple-800">Welcome to SmartPark Haven</h1>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Find and book your perfect parking spot with ease. Enter your destination to get started.
+              </p>
+            </div>
+            
+            <Card className="p-6 shadow-lg bg-white/80 backdrop-blur-sm">
+              <SearchLocation 
+                searchValue={searchValue}
+                onSearchChange={setSearchValue}
+                onSearch={handleSearch}
+              />
+              <p className="mt-4 text-sm text-gray-500 text-center">
+                Try searching for "college" to see available parking spots
+              </p>
+            </Card>
+          </div>
+        ) : (
+          <Card className="p-4 shadow-lg mt-4">
             <ParkingSection onSlotSelect={handleSlotSelection} />
-          )}
-        </Card>
+          </Card>
+        )}
       </div>
 
       <BookingDialogs 
