@@ -54,6 +54,7 @@ const BookingConfirmation = ({ slotId, bookingTime }: BookingConfirmationProps) 
       </Dialog>
 
       <div className="min-h-screen bg-purple-50 p-6">
+        <h1 className="text-2xl font-bold text-purple-700 text-center mb-8">Booking Details</h1>
         <Card className="max-w-md mx-auto p-6 space-y-6">
           <div className="flex justify-center">
             <CarIcon className="w-16 h-16 text-purple-500" />
